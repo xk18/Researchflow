@@ -94,7 +94,7 @@
 
 ## 开发与反馈
 
-使用 Tauri 2、Rust、React 和 TypeScript。[构建与检查](docs/DEVELOPMENT.zh-CN.md) · [Windows 代码签名](docs/WINDOWS_CODE_SIGNING.zh-CN.md) · [常见问题](docs/FAQ.zh-CN.md) · [参与说明](CONTRIBUTING.md)
+使用 Tauri 2、Rust、React 和 TypeScript。[构建与检查](docs/DEVELOPMENT.zh-CN.md) · [常见问题](docs/FAQ.zh-CN.md) · [参与说明](CONTRIBUTING.md)
 
 欢迎通过 [Issues](https://github.com/xk18/researchflow/issues) 提交使用体验、Bug 和功能建议。请不要附上真实科研 JSON、患者信息、密钥或未脱敏截图。涉及可被滥用的漏洞请参阅 [安全报告说明](SECURITY.md)。
 
