@@ -1,0 +1,8 @@
+# Preserve the reviewed 1.7.2 file bytes when staging and cloning.
+# Existing application sources keep their original line endings.
+* -text
+*.png binary
+*.jpg binary
+*.pdf binary
+*.zip binary
+*.exe binary

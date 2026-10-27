@@ -1,0 +1,11 @@
+Required Notice: Copyright © 2026 雪冠 (https://github.com/xk18)
+
+ResearchFlow original contributions are made available under the PolyForm
+Noncommercial License 1.0.0; see LICENSE. Redistributors must preserve the
+license terms or their URL and this Required Notice, as required by the license.
+
+Third-party components remain under their respective licenses. See
+THIRD_PARTY_NOTICES.txt. No exclusive copyright is claimed over those components.
+
+The ResearchFlow name and R mark identify this project. The software license
+does not imply endorsement of modified or redistributed versions by the author.

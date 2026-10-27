@@ -1,0 +1,33 @@
+# Build and local development output
+node_modules/
+.cargo/config.toml
+dist/
+src-tauri/target/
+src-tauri/gen/
+*.tsbuildinfo
+test-results/
+artifacts/
+playwright-report/
+*.log
+*.tmp
+# Credentials and private signing material; rules contain no secret values.
+.env
+.env.*
+!.env.example
+.npmrc
+.git-credentials
+signing.local.json
+*.pfx
+*.p12
+*.pem
+*.key
+id_rsa
+id_ed25519
+# Research records are not source configuration. Do not ignore all JSON files.
+researchflow.json
+researchflow.*.json
+desktop.json
+backups/
+private-data/
+# Local agent guidance is not part of the public distribution.
+AGENTS.md
