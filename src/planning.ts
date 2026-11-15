@@ -47,7 +47,7 @@ export function focusedProject(
   today = localDate(),
 ): Project | undefined {
   const manual = d.projects.find(
-    (p) => p.id === d.settings.focusProjectId && p.status === "active",
+    (p) => p.id === d.settings.focusProjectId,
   );
   return (
     manual ||
@@ -55,19 +55,19 @@ export function focusedProject(
     d.projects.find((p) => p.status === "active")
   );
 }
-/** Scheduled active projects first; otherwise all active projects, in stable order. */
+/** Dates affect ranking only. Every saved project remains explicitly selectable. */
 export function focusProjectOptions(d: AppData, today = localDate()): Project[] {
-  const active = d.projects.filter(p => p.status === 'active');
   const ids = new Set(planningPeriods(d).filter(p => includesDay(p.startDate,p.endDate,today)).map(p => p.projectId));
-  const scheduled = active.filter(p => ids.has(p.id));
-  if (!scheduled.length) return active;
-  const manual = active.find(p => p.id === d.settings.focusProjectId);
-  return manual && !ids.has(manual.id) ? [...scheduled,manual] : scheduled;
+  return [
+    ...d.projects.filter(p => p.status === 'active' && ids.has(p.id)),
+    ...d.projects.filter(p => p.status === 'active' && !ids.has(p.id)),
+    ...d.projects.filter(p => p.status !== 'active'),
+  ];
 }
 export function cycleFocusProject(d: AppData, direction: -1 | 1, today = localDate()) {
   const options = focusProjectOptions(d,today);
   if (options.length < 2) return options[0];
-  const current = options.findIndex(p => p.id === d.settings.focusProjectId);
+  const current = options.findIndex(p => p.id === focusedProject(d,today)?.id);
   return options[(Math.max(0,current) + direction + options.length) % options.length];
 }
 export function orderedMilestones(d: AppData, pid: string) {

@@ -9,6 +9,12 @@ import { upgradeAndValidate } from "./validation";
 import { focusedProject, currentMilestone, planningPeriods } from "./planning";
 import { localDate } from "./dates";
 export function recommend(data: AppData, track?: Track): Task | undefined {
+  // Keep the existing session visible while selecting the next project.
+  const sessionTask = data.tasks.find(t => t.id === data.timer?.taskId && t.status !== "done" &&
+    (!track || data.projects.find(p => p.id === t.projectId)?.track === track));
+  if (sessionTask) return sessionTask;
+  const selected = data.projects.find(p => p.id === data.settings.focusProjectId);
+  if (selected && (!track || selected.track === track) && selected.status !== "active") return undefined;
   const active = new Map(
     data.projects
       .filter((p) => p.status === "active" && (!track || p.track === track))

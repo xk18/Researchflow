@@ -6,6 +6,7 @@ import { ActionCard } from '../components/ActionCard';
 import { dueLabel, useToday } from '../dates';
 import { TaskEditor, ProjectEditor } from '../components/Editors';
 import { projectPath } from '../projectRelations';
+import { FocusProjectOptions, InactiveProjectNotice } from '../components/ProjectSwitcher';
 export function Focus({ navigate }: { navigate: (page: string) => void }) {
   const { data, mutate } = useData();
   const [editor, setEditor] = useState<'task' | 'project' | null>(null);
@@ -16,6 +17,7 @@ export function Focus({ navigate }: { navigate: (page: string) => void }) {
     const running = data!.tasks.find(t => t.id === data!.timer?.taskId);
     if (running) return running;
     if (!project) return undefined;
+    if (project.status !== 'active') return undefined;
     const candidates = data!.tasks.filter(t => t.status !== 'done' && t.projectId === project.id && (!t.deferredUntil || Date.parse(t.deferredUntil) <= Date.now()));
     return candidates.find(t => t.milestoneId === stage?.id) || candidates[0];
   }, [data, project?.id, stage?.id]);
@@ -34,7 +36,7 @@ export function Focus({ navigate }: { navigate: (page: string) => void }) {
             const id = e.currentTarget.value;
             void mutate(d => { d.settings.focusProjectId = id; });
           }}>
-            {projectOptions.map(p => <option key={p.id} value={p.id}>{projectPath(data!, p)}</option>)}
+            <FocusProjectOptions data={data!} projects={projectOptions}/>
           </select>
         </div>
         <h2>{projectPath(data!, project)}</h2>
@@ -51,7 +53,7 @@ export function Focus({ navigate }: { navigate: (page: string) => void }) {
       </section>
       <section className="today">
         {activeProject && activeProject.id !== project.id && <p className="focus-session-context">正在专注：{projectPath(data!, activeProject)}</p>}
-        <ActionCard task={task} hideContext={task?.projectId === project.id} onAdd={() => setEditor('task')}/>
+        {project.status !== 'active' && !task ? <InactiveProjectNotice project={project} onOpen={() => navigate(`projects:${project.id}`)}/> : <ActionCard task={task} hideContext={task?.projectId === project.id} onAdd={() => setEditor('task')}/>}
       </section>
     </> : <div className="planning-empty">暂无进行中的项目<button className="primary" onClick={() => setEditor('project')}><Plus size={15}/>新建项目</button></div>}
     {editor === 'project' && <ProjectEditor onClose={() => setEditor(null)}/>}

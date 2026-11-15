@@ -1,18 +1,18 @@
 # ResearchFlow 分享与分发
 
-适用版本：1.7.2 · Windows x64
+适用版本：1.7.3 · Windows x64
 
 ## 安装与阅读
 
-在 [GitHub Releases](https://github.com/xk18/researchflow/releases/tag/v1.7.2) 下载 `ResearchFlow_1.7.2_x64-setup.exe`。普通用户不需要 Node.js、Rust 或源码。也可以下载 `ResearchFlow-1.7.2-Windows-x64-share.zip`，解压后阅读“先读我”并运行安装包。
+在 [GitHub Releases](https://github.com/xk18/researchflow/releases/tag/v1.7.3) 下载 `ResearchFlow_1.7.3_x64-setup.exe`。普通用户不需要 Node.js、Rust 或源码。也可以下载 `ResearchFlow-1.7.3-Windows-x64-share.zip`，解压后阅读“先读我”并运行安装包。
 
-分享包包含安装包、原版使用说明书 PDF、许可、版权通知、第三方许可及包内文件校验清单。PDF 随原 1.7.2 安装包归档保留；当前的许可、安装及隐私说明以本仓库对应文件为准。
+分享包包含安装包、原版使用说明书 PDF、许可、版权通知、第三方许可及包内文件校验清单。PDF 随原 1.7.3 安装包归档保留；当前的许可、安装及隐私说明以本仓库对应文件为准。
 
-运行要求为 Windows 10 / 11 x64 和 Microsoft Edge WebView2 Runtime。缺少运行库时，安装过程可能需要联网下载；安装后核心功能可离线使用。1.7.2 安装包未做代码签名，Windows 可能提示未知发布者。请核实下载来源和 SHA256，并遵守单位电脑的管理规则。
+运行要求为 Windows 10 / 11 x64 和 Microsoft Edge WebView2 Runtime。缺少运行库时，安装过程可能需要联网下载；安装后核心功能可离线使用。1.7.3 安装包未做代码签名，Windows 可能提示未知发布者。请核实下载来源和 SHA256，并遵守单位电脑的管理规则。
 
 ## 给开发者
 
-克隆仓库，或下载 `ResearchFlow-1.7.2-source.zip`。源码包包含工程、锁文件、README、使用说明和产品截图，不包含科研记录、构建缓存或 Git 历史。按 [开发说明](DEVELOPMENT.zh-CN.md) 准备工具并构建。
+克隆仓库，或下载 `ResearchFlow-1.7.3-source.zip`。源码包包含工程、锁文件、README、使用说明和产品截图，不包含科研记录、构建缓存或 Git 历史。按 [开发说明](DEVELOPMENT.zh-CN.md) 准备工具并构建。
 
 GitHub 的 **Code → Download ZIP 是源码，不是安装程序**。源码、文档和本项目素材采用 [PolyForm Noncommercial 1.0.0](../LICENSE)，商业用途需另行获得许可。分发时保留许可与 [版权通知](../COPYRIGHT.txt)。第三方组件许可见 [第三方许可通知](../THIRD_PARTY_NOTICES.txt)。
 
@@ -34,11 +34,11 @@ ResearchFlow 不内置 AI 模型、不需要 API Key，也不直接连接 AI 服
 
 | 文件 | 用途 |
 | --- | --- |
-| `ResearchFlow_1.7.2_x64-setup.exe` | Windows 安装包 |
-| `ResearchFlow-1.7.2-使用说明书.pdf` | 随 1.7.2 归档的使用手册 |
-| `ResearchFlow-1.7.2-Windows-x64-share.zip` | 面向普通用户的安装与阅读材料 |
-| `ResearchFlow-1.7.2-source.zip` | 面向开发者的源码与文档 |
+| `ResearchFlow_1.7.3_x64-setup.exe` | Windows 安装包 |
+| `ResearchFlow-1.7.3-使用说明书.pdf` | 随 1.7.3 归档的使用手册 |
+| `ResearchFlow-1.7.3-Windows-x64-share.zip` | 面向普通用户的安装与阅读材料 |
+| `ResearchFlow-1.7.3-source.zip` | 面向开发者的源码与文档 |
 | `LICENSE`、`COPYRIGHT.txt`、`THIRD_PARTY_NOTICES.txt` | 本项目及第三方许可 |
-| `SHA256-release-v1.7.2.json` | Release 附件完整性校验 |
+| `SHA256-release-v1.7.3.json` | Release 附件完整性校验 |
 
 分享包内另附 `SHA256-share.json`，对应包内文件。可以用 PowerShell 的 `Get-FileHash -Algorithm SHA256` 与清单比对。哈希只能验证文件是否与清单一致，不能替代可信下载来源或数字签名。

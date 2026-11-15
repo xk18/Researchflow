@@ -184,8 +184,8 @@ test('悬浮窗优先列出当天已安排的进行中项目并保留当前专�
   await page.evaluate(value => localStorage.setItem('researchflow-v1',JSON.stringify(value)),d);
   await page.reload();
   const select = page.getByRole('combobox',{name:'切换当前科研项目'});
-  await expect(select.locator('option')).toHaveCount(1);
-  await expect(page.getByRole('button',{name:'下一个科研项目'})).toBeDisabled();
+  await expect(select.locator('option')).toHaveCount(d.projects.length);
+  await expect(page.getByRole('button',{name:'下一个科研项目'})).toBeEnabled();
   await expect(select).toHaveValue(scheduled.id);
   const more = {...base(),projectId:second.id,name:'今天需要推进的子研究',type:'分析',minutes:20,status:'todo' as const,note:''};
   d.tasks.push(more);
@@ -193,7 +193,7 @@ test('悬浮窗优先列出当天已安排的进行中项目并保留当前专�
   await page.evaluate(value => localStorage.setItem('researchflow-v1',JSON.stringify(value)),d);
   await page.reload();
   const switcher = page.getByRole('combobox',{name:'切换当前科研项目'});
-  await expect(switcher.locator('option')).toHaveCount(2);
+  await expect(switcher.locator('option')).toHaveCount(d.projects.length);
   await page.getByRole('button',{name:'下一个科研项目'}).click();
   await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('researchflow-v1')!).settings.focusProjectId)).toBe(second.id);
   await expect(page.locator('.widget-session-project')).toContainText(scheduled.name);

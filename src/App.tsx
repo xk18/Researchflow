@@ -33,10 +33,10 @@ import { needsWelcome } from "./samples";
 export function App() {
   const { data, error, reload } = useData();
   const [page, setPage] = useState(
-    new URLSearchParams(location.search).get("page") || "overview",
+    new URLSearchParams(location.search).get("page")?.split(":")[0] || "overview",
   );
   const [projectTarget, setProjectTarget] = useState(
-    new URLSearchParams(location.search).get("projectId") || "",
+    new URLSearchParams(location.search).get("projectId") || new URLSearchParams(location.search).get("page")?.split(":")[1] || "",
   );
   const widget = new URLSearchParams(location.search).get("view") === "widget";
   useLayoutEffect(() => {

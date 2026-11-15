@@ -4,7 +4,7 @@ ResearchFlow（科研续航）是一款面向科研人员的轻量级桌面工�
 
 **Windows 10 / 11 x64 · 核心功能离线可用 · 无需账号 · 源码公开，非商业许可**
 
-[下载 1.7.2](https://github.com/xk18/researchflow/releases/tag/v1.7.2) · [使用说明](docs/USER_GUIDE.zh-CN.md) · [安装与升级](docs/INSTALL.zh-CN.md) · [隐私说明](docs/PRIVACY.zh-CN.md)
+[下载 1.7.3](https://github.com/xk18/researchflow/releases/tag/v1.7.3) · [使用说明](docs/USER_GUIDE.zh-CN.md) · [安装与升级](docs/INSTALL.zh-CN.md) · [隐私说明](docs/PRIVACY.zh-CN.md)
 
 ![ResearchFlow 概览与桌面悬浮卡片](docs/images/product/01-overview.png)
 
@@ -53,7 +53,7 @@ ResearchFlow（科研续航）是一款面向科研人员的轻量级桌面工�
 
 同一阶段分别确立一个重点探索项目和一个重点交付项目，配合科研月历、时间轴和 DDL 规划未来的工作。抓住主要矛盾，明确这段时间应该将哪些项目作为主线、重点突破什么，避免在多个项目间反复横跳。
 
-有联系的工作可以整理为主项目和子项目，各自保留阶段、行动与时间安排。在行动视角或悬浮窗切换项目后，可以查看对应的下一步行动；专注支持正计时和倒计时。
+有联系的工作可以整理为主项目和子项目，各自保留阶段、行动与时间安排。概览、行动视角和悬浮窗都可以选择所有已有项目，不必先设为重点或创建今日计划。切换后可以查看对应的下一步行动；专注支持正计时和倒计时。
 
 ### 5. 降低启动成本，减少内耗
 
@@ -74,15 +74,15 @@ ResearchFlow（科研续航）是一款面向科研人员的轻量级桌面工�
 ![今日待办](docs/images/product/05-todos.png)
 ![科研周报](docs/images/product/06-report.png)
 
-当前版本为 1.7.2，具体改动见 [版本说明](docs/RELEASE_NOTES.1.7.2.zh-CN.md)。
+当前版本为 1.7.3，具体改动见 [版本说明](docs/RELEASE_NOTES.1.7.3.zh-CN.md)。
 
 ## 下载与开始
 
-在 [Releases](https://github.com/xk18/researchflow/releases/tag/v1.7.2) 下载 `ResearchFlow_1.7.2_x64-setup.exe`。也可以下载分享 ZIP，里面附有说明书。GitHub 的 **Code → Download ZIP 是源码，不是安装包**。
+在 [Releases](https://github.com/xk18/researchflow/releases/tag/v1.7.3) 下载 `ResearchFlow_1.7.3_x64-setup.exe`。也可以下载分享 ZIP，里面附有说明书。GitHub 的 **Code → Download ZIP 是源码，不是安装包**。
 
 首次打开可选择体验三个完整示例，或直接创建自己的项目。示例可正常编辑，之后可在设置中安全移除。已有研究记录的用户不会被自动加入示例。
 
-运行要求为 Windows 10 / 11 x64 和 Microsoft Edge WebView2。电脑缺少 WebView2 时，首次安装可能需要联网下载；安装后核心功能可离线使用。**当前 1.7.2 安装包未做代码签名**，Windows 可能提示未知发布者或阻止运行。请核对来源及校验清单，并遵守所在单位的设备管理要求。
+运行要求为 Windows 10 / 11 x64 和 Microsoft Edge WebView2。电脑缺少 WebView2 时，首次安装可能需要联网下载；安装后核心功能可离线使用。**当前 1.7.3 安装包未做代码签名**，Windows 可能提示未知发布者或阻止运行。请核对来源及校验清单，并遵守所在单位的设备管理要求。
 
 ## 数据与隐私
 
@@ -90,7 +90,7 @@ ResearchFlow（科研续航）是一款面向科研人员的轻量级桌面工�
 
 本地 JSON **没有应用层加密**。备份、周报、截图和复制给其他平台的内容也可能含有未公开信息，请自行检查分享范围。软件备份不包含所记录路径指向的数据集、脚本和文档。[隐私与数据安全](docs/PRIVACY.zh-CN.md)
 
-升级前建议导出 JSON、保存输入并从托盘完全退出旧版。1.7.2 沿用原应用标识和数据目录，正常首次读取新版时会保留旧数据副本；软件没有自动更新服务。[安装、备份与升级](docs/INSTALL.zh-CN.md)
+升级前建议导出 JSON、保存输入并从托盘完全退出旧版。1.7.3 沿用原应用标识和数据目录，正常首次读取新版时会保留旧数据副本；软件没有自动更新服务。[安装、备份与升级](docs/INSTALL.zh-CN.md)
 
 ## 开发与反馈
 
@@ -110,4 +110,4 @@ ResearchFlow（科研续航）是一款面向科研人员的轻量级桌面工�
 
 ResearchFlow is a local-first Windows app for managing research projects, stages, actions, schedules and notes. It includes an editable workflow map, daily to-dos, focus timers, restart cards and weekly reports. No account is required. Core features work offline. Source available under PolyForm Noncommercial 1.0.0. The Windows installer is currently unsigned.
 
-Screenshots show the actual 1.7.2 browser frontend with isolated teaching examples. They do not contain the author's private research records or represent scientific findings. See [screenshot notes](docs/images/product/README.md).
+Product screenshots show the 1.7.2 browser frontend with isolated teaching examples; see the 1.7.3 release notes for the project switching fix. They do not contain the author's private research records or represent scientific findings. See [screenshot notes](docs/images/product/README.md).

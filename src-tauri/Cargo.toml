@@ -1,6 +1,6 @@
 [package]
 name = "researchflow"
-version = "1.7.2"
+version = "1.7.3"
 description = "安静、离线的科研续航桌面组件"
 authors = ["ResearchFlow"]
 edition = "2021"

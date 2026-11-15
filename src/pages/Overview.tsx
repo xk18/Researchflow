@@ -15,6 +15,7 @@ import { Welcome } from "../components/Samples";
 import { needsWelcome } from "../samples";
 import { projectPath } from '../projectRelations';
 import { Message } from '../components/Message';
+import { ProjectSwitcher, InactiveProjectNotice } from '../components/ProjectSwitcher';
 
 export function MotivationPicker({ compact = false }: { compact?: boolean }) {
   const { data, mutate, busy } = useData();
@@ -35,7 +36,8 @@ export function Overview({ navigate }: { navigate: Navigate }) {
   const task = recommend(data!), today = useToday();
   const context = task ? data!.projects.find(p => p.id === task.projectId) : focusedProject(data!, today);
   const stage = task ? data!.milestones.find(m => m.id === task.milestoneId && m.projectId === task.projectId) : context && currentMilestone(data!, context.id);
-  const manual = data!.projects.find(p => p.id === data!.settings.focusProjectId && p.status === "active");
+  const selected = focusedProject(data!,today);
+  const manual = data!.projects.find(p => p.id === data!.settings.focusProjectId);
   const otherFocus = data!.timer?.taskId === task?.id && manual && manual.id !== context?.id;
   const paused = data!.projects.filter(p => p.status === "paused").sort((a,b) =>
     (b.snapshot?.updatedAt || b.updatedAt).localeCompare(a.snapshot?.updatedAt || a.updatedAt) || a.id.localeCompare(b.id));
@@ -52,14 +54,13 @@ export function Overview({ navigate }: { navigate: Navigate }) {
       <OverviewTimeline today={today} navigate={navigate} />
       <section className="overview-action" aria-label="当前研究与下一步行动">
         <div className="overview-context-heading"><div className="overview-project-context">
-          {otherFocus && <span>{data!.timer?.running ? "正在专注" : "本次专注"}</span>}
-          {context ? <OverviewHint className="text-button overview-context-name" hint={projectPath(data!,context)} onClick={() => navigate(`projects:${context.id}`)}>{projectPath(data!,context)}</OverviewHint> : <span>选择一个研究项目</span>}
+          <ProjectSwitcher/>
         </div><button className="icon" title="行动视角" aria-label="行动视角" onClick={() => navigate("focus")}><ArrowUpRight aria-hidden="true" size={15} /></button></div>
-        {otherFocus && <p className="overview-focus-note" title="当前选定项目"><button className="text-button" onClick={() => navigate(`projects:${manual.id}`)}>{manual.name}</button></p>}
+        {otherFocus && context && <p className="overview-focus-note"><span>{data!.timer?.running ? "正在专注" : "本次专注"} · </span><button className="text-button" onClick={() => navigate(`projects:${context.id}`)}>{projectPath(data!,context)}</button></p>}
         <div className="overview-stage-row"><p className="overview-stage">
           {stage && context ? <OverviewHint className="text-button" hint={`${stage.name} · ${MILESTONE_STATUS[stage.status]}`} onClick={() => navigate({ page: "projects", projectId: context.id, milestoneId: stage.id })}>{stage.name}</OverviewHint> : <span>{task ? "未分组行动" : "暂无阶段"}</span>}
         </p><MotivationPicker compact /></div>
-        <ActionCard overview task={task} onAdd={() => setEditor(data!.projects.some(p => p.status === "active") ? "task" : "project")} />
+        {selected && selected.status !== 'active' && !task ? <InactiveProjectNotice project={selected} onOpen={() => navigate(`projects:${selected.id}`)}/> : <ActionCard overview task={task} onAdd={() => setEditor(data!.projects.some(p => p.status === "active") ? "task" : "project")} />}
       </section>
       <section className="overview-records" aria-label="研究记录与恢复">
         <div className="overview-counts"><span title="近7天完成行动" aria-label={`近7天完成 ${done} 项行动`}><CheckCheck size={15}/><strong>{done}</strong><small>近7天</small></span><button className="text-button" title="查看成果卡" aria-label="查看成果卡" onClick={() => navigate("results")}><NotebookPen size={15}/><strong>{data!.results.length}</strong><small>成果卡</small></button></div>
@@ -68,7 +69,7 @@ export function Overview({ navigate }: { navigate: Navigate }) {
       </section>
     </>}
     {editor === "project" && <ProjectEditor onClose={() => setEditor(null)} />}
-    {editor === "task" && <TaskEditor projectId={context?.id} milestoneId={stage?.id} onClose={() => setEditor(null)} />}
+    {editor === "task" && <TaskEditor projectId={selected?.status === 'active' ? selected.id : undefined} milestoneId={selected?.status === 'active' ? currentMilestone(data!,selected.id)?.id : undefined} onClose={() => setEditor(null)} />}
     {editor === "idea" && <IdeaEditor onClose={() => setEditor(null)} />}
     {restart && data!.projects.some(p => p.id === restart) && <Restart project={data!.projects.find(p => p.id === restart)!} onClose={() => setRestart(null)} />}
   </>;

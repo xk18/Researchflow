@@ -66,7 +66,7 @@ test("概览计时、动力、主线分离、结束和完成语义保留",async(
   await page.getByRole("button",{name:"继续专注",exact:true}).click();expect((await read(page)).timer.running).toBe(true);
   await page.locator("nav").getByRole("button",{name:"行动视角",exact:true}).click();await page.getByLabel("当前科研重点",{exact:true}).selectOption("other");
   await page.getByRole("button",{name:"概览",exact:true}).click();
-  await expect(page.locator(".overview-project-context")).toContainText("正在专注");await expect(page.locator(".overview-focus-note")).toContainText("研究项目 1");
+  await expect(page.getByRole('combobox',{name:'切换当前科研项目'})).toHaveValue('other');await expect(page.locator(".overview-focus-note")).toContainText("正在专注");await expect(page.locator(".overview-focus-note")).toContainText('食物中加盐');
   await expect(page.locator(".overview-stage")).toContainText("行动实际所属阶段");
   await page.getByRole("button",{name:"结束专注",exact:true}).click();const ended=await read(page);
   expect(ended.timer).toBeNull();expect(ended.tasks[0].status).toBe("todo");expect(ended.focusSessions[0].status).toBe("ended");

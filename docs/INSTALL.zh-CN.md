@@ -1,10 +1,10 @@
 # 安装与升级
 
-适用版本：ResearchFlow 1.7.2，Windows 10 / 11 x64。
+适用版本：ResearchFlow 1.7.3，Windows 10 / 11 x64。
 
 ## 第一次安装
 
-从 [v1.7.2 Releases](https://github.com/xk18/researchflow/releases/tag/v1.7.2) 下载 ResearchFlow_1.7.2_x64-setup.exe，按向导完成当前用户安装。也可下载分享 ZIP，解压后运行其中安装包。Code → Download ZIP 是源码，不能直接安装。
+从 [v1.7.3 Releases](https://github.com/xk18/researchflow/releases/tag/v1.7.3) 下载 ResearchFlow_1.7.3_x64-setup.exe，按向导完成当前用户安装。也可下载分享 ZIP，解压后运行其中安装包。Code → Download ZIP 是源码，不能直接安装。
 
 需要 Microsoft Edge WebView2 Runtime。缺少时安装向导可能联网下载；已有时核心功能可离线使用。普通用户不需要 Node.js、Rust 或开发工具。
 
@@ -17,7 +17,7 @@
 3. 在同一 Windows 账户安装新版，不手动清理原数据目录。
 4. 打开软件，核对项目、阶段、行动和安排是否仍在。若异常，保留原文件与副本，再检查恢复方式。
 
-1.7.2 沿用原应用标识及数据目录；正常首次读取新版前，会保存升级前副本。此机制不替代手动备份，也不等于已经在所有机器上验证覆盖安装。
+1.7.3 沿用原应用标识及数据目录；正常首次读取新版前，会保存升级前副本。此机制不替代手动备份，也不等于已经在所有机器上验证覆盖安装。
 
 ## 备份和换电脑
 
@@ -30,7 +30,7 @@ JSON 不包含文件路径指向的数据集、脚本或文档，它们需要另
 在下载目录运行：
 
 ```powershell
-Get-FileHash -LiteralPath '.\ResearchFlow_1.7.2_x64-setup.exe' -Algorithm SHA256
+Get-FileHash -LiteralPath '.\ResearchFlow_1.7.3_x64-setup.exe' -Algorithm SHA256
 ```
 
-与 Release 附带 SHA256-release-v1.7.2.json 核对。哈希能帮助检查文件一致性，不能替代可信来源或数字签名。
+与 Release 附带 SHA256-release-v1.7.3.json 核对。哈希能帮助检查文件一致性，不能替代可信来源或数字签名。

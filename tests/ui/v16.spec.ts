@@ -1,5 +1,6 @@
 import { expect, test, Page } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { APP_VERSION } from '../../src/version';
 import { emptyData } from '../../src/types';
 import { createSampleData, loadSamples } from '../../src/samples';
 
@@ -124,11 +125,11 @@ test('升级前副本可预览，用户修改不会覆盖旧科研记录',async(
   await page.getByRole('button',{name:'设置',exact:true}).click();
   await page.getByRole('button',{name:'查看升级前副本',exact:true}).click();
   await expect(page.getByRole('dialog')).toContainText('包含 3 个项目'); await page.keyboard.press('Escape');
-  const snapshot=await page.evaluate(()=>localStorage.getItem('researchflow-before-upgrade-1.7.2'));
+  const snapshot=await page.evaluate(version=>localStorage.getItem(`researchflow-before-upgrade-${version}`),APP_VERSION);
   expect(JSON.parse(snapshot!).projects).toEqual(d.projects);
   await page.getByRole('button',{name:'深色',exact:true}).click();
   await page.reload(); await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
-  expect(await page.evaluate(()=>localStorage.getItem('researchflow-before-upgrade-1.7.2'))).toBe(snapshot);
+  expect(await page.evaluate(version=>localStorage.getItem(`researchflow-before-upgrade-${version}`),APP_VERSION)).toBe(snapshot);
   expect((await read(page)).projects).toEqual(d.projects);
 });
 

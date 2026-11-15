@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Expand, Lightbulb, Minus, RotateCcw, SlidersHorizontal, X } from "lucide-react";
+import { Expand, Lightbulb, Minus, RotateCcw, SlidersHorizontal, X } from "lucide-react";
 import { useData } from "../state";
 import { recommend } from "../domain";
 import { desktop, native } from "../services/native";
@@ -8,13 +8,13 @@ import { MotivationPicker } from "../pages/Overview";
 import { ActionCard } from "./ActionCard";
 import { IdeaEditor, ProjectEditor, TaskEditor } from "./Editors";
 import { Restart } from "../pages/Projects";
-import { cycleFocusProject, focusProjectOptions, focusedProject } from "../planning";
+import { currentMilestone, focusedProject } from "../planning";
+import { ProjectSwitcher, InactiveProjectNotice } from './ProjectSwitcher';
 import { needsWelcome } from "../samples";
-import { projectPath } from '../projectRelations';
 import { useToday } from '../dates';
 import { Message } from './Message';
 export function Widget() {
-  const { data, mutate, notify } = useData();
+  const { data, notify } = useData();
   const [mini, setMini] = useState(
       new URLSearchParams(location.search).get("mini") === "1",
     ),
@@ -23,8 +23,8 @@ export function Widget() {
   const paused = data!.projects.find((p) => p.status === "paused");
   const task = recommend(data!);
   const today = useToday();
-  const focusOptions = focusProjectOptions(data!,today);
-  const selectedProjectId = focusedProject(data!,today)?.id || "";
+  const selectedProject = focusedProject(data!,today);
+  const selectedProjectId = selectedProject?.id || "";
   const sessionProject = data!.timer ? data!.projects.find(p => p.id === data!.tasks.find(t => t.id === data!.timer?.taskId)?.projectId) : undefined;
   const welcome = needsWelcome(data!);
   const openedWelcome = useRef(false);
@@ -120,35 +120,12 @@ export function Widget() {
         </button>
       </header>
       <div className="widget-content">
-        {focusOptions.length > 0 && (
-          <div className="widget-project-switcher">
-          <button className="icon" disabled={focusOptions.length < 2} aria-label="上一个科研项目" title="上一个项目" onClick={() => { const p = cycleFocusProject(data!,-1); if (p) void mutate(d => { d.settings.focusProjectId = p.id; }); }}><ChevronLeft size={16}/></button>
-          <select
-            className="widget-focus-select"
-            aria-label="切换当前科研项目"
-            title={focusOptions.find(p => p.id === selectedProjectId) ? projectPath(data!,focusOptions.find(p => p.id === selectedProjectId)!) : undefined}
-            value={selectedProjectId}
-            onChange={(e) => {
-              const id = e.target.value;
-              void mutate((d) => {
-                d.settings.focusProjectId = id;
-              });
-            }}
-          >
-            {focusOptions.map((p) => (
-                <option value={p.id} key={p.id}>
-                  {projectPath(data!,p)}
-                </option>
-              ))}
-          </select>
-          <button className="icon" disabled={focusOptions.length < 2} aria-label="下一个科研项目" title="下一个项目" onClick={() => { const p = cycleFocusProject(data!,1); if (p) void mutate(d => { d.settings.focusProjectId = p.id; }); }}><ChevronRight size={16}/></button>
-          </div>
-        )}
+        <ProjectSwitcher/>
         {sessionProject && sessionProject.id !== selectedProjectId && <p className="widget-session-project" title={sessionProject.name}>{data!.timer?.needsRecovery ? "待恢复" : data!.timer?.running ? "专注中" : "已暂停"} · {sessionProject.name}</p>}
         {welcome ? <div className="widget-welcome">
           <h2>ResearchFlow</h2>
           <button className="primary" onClick={() => manage("overview")}>开始使用</button>
-        </div> : <ActionCard
+        </div> : selectedProject && selectedProject.status !== 'active' && !task ? <InactiveProjectNotice project={selectedProject} onOpen={() => manage(`projects:${selectedProject.id}`)}/> : <ActionCard
           task={task}
           compact
           onAdd={() =>
@@ -196,7 +173,7 @@ export function Widget() {
       {editor === "project" && (
         <ProjectEditor onClose={() => setEditor(null)} />
       )}
-      {editor === "task" && <TaskEditor onClose={() => setEditor(null)} />}
+      {editor === "task" && <TaskEditor projectId={selectedProject?.status === 'active' ? selectedProject.id : undefined} milestoneId={selectedProject?.status === 'active' ? currentMilestone(data!,selectedProject.id)?.id : undefined} onClose={() => setEditor(null)} />}
       {restart && paused && (
         <Restart project={paused} onClose={() => setRestart(false)} />
       )}

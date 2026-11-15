@@ -2870,6 +2870,10 @@ dialog {
 .timeline-overview-range { position: absolute; top: 0; bottom: 0; background: var(--tint); opacity: .45; pointer-events: none; }
 .overview-context-heading, .overview-stage-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; }
 .overview-context-heading { margin-bottom: 2px; }
+.overview-project-context { flex:1; }
+.overview-project-context > .project-switcher { width:100%; margin:0; padding:0; }
+.overview-project-context .project-switcher select { font-weight:500; color:var(--ink); }
+.inactive-project-notice p { color:var(--secondary); font-size:.86rem; margin:6px 0 12px; }
 .overview-context-heading > .text-button { font-size: 0.85714rem; flex-shrink: 0; }
 .overview-project-context { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .overview-project-context > span { font-size: 0.92857rem; color: var(--secondary); white-space: nowrap; }
